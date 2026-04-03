@@ -1521,24 +1521,6 @@
     transition: color 0.3s;
   }
   .nav-links a:hover { color: var(--gold); }
-  .nav-links a.nav-active {
-    color: var(--gold-light);
-    position: relative;
-  }
-  .nav-links a.nav-active::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(to right, transparent, var(--gold), transparent);
-    border-radius: 2px;
-    animation: navActiveGlow 1.5s ease-in-out infinite;
-  }
-  @keyframes navActiveGlow {
-    0%,100% { opacity: 0.7; transform: scaleX(0.8); }
-    50%      { opacity: 1;   transform: scaleX(1); }
-  }
 
   .badge-tag {
     display: inline-block;
@@ -1676,30 +1658,15 @@
   .anim-map-container {
     position: relative;
     width: 100%;
-    /* Extra top space so parade card is never clipped at top of route */
-    padding-bottom: 72%; /* taller ratio — was 62.5%, now 72% to give card room */
+    padding-bottom: 62.5%; /* 800:500 aspect ratio */
     background: linear-gradient(160deg, #0d1a0d 0%, #0a1520 40%, #0d100a 100%);
     border: 1px solid rgba(212,175,55,0.2);
     border-radius: 18px;
-    overflow: visible; /* CRITICAL: allow card to extend above map edge */
-    box-shadow: 0 0 60px rgba(0,0,0,0.5), inset 0 0 40px rgba(0,0,0,0.3);
-    margin-top: 3.5rem; /* gap so card visible above map when at top */
-  }
-  .anim-map-container > *:not(.parade-card) {
-    position: absolute;
-  }
-  /* Parade card is absolute but allowed to overflow */
-  .parade-card {
-    position: absolute;
-    overflow: visible;
-  }
-  /* Inner visual area clips normally */
-  .anim-map-inner-clip {
-    position: absolute;
-    inset: 0;
     overflow: hidden;
-    border-radius: 18px;
-    pointer-events: none;
+    box-shadow: 0 0 60px rgba(0,0,0,0.5), inset 0 0 40px rgba(0,0,0,0.3);
+  }
+  .anim-map-container > * {
+    position: absolute;
   }
 
   /* Grid background — simulates city blocks */
@@ -2066,384 +2033,6 @@
     .parade-groom-emoji { font-size: 1rem; }
     .map-info-box { top: 4px; right: 4px; padding: 3px 6px; }
     .mib-row { font-size: 0.44rem; }
-  }
-
-
-  /* ============================================================
-     MERHUM / IN MEMORIAM SECTION
-  ============================================================ */
-  .merhum-section {
-    background: linear-gradient(180deg, #050010 0%, #080008 30%, #040010 60%, #050008 100%);
-    position: relative;
-    overflow: hidden;
-    padding: 5rem 1.5rem;
-  }
-  .merhum-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 50% 0%, rgba(150,120,200,0.06) 0%, transparent 60%),
-      radial-gradient(ellipse at 20% 80%, rgba(100,80,160,0.05) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 40%, rgba(80,60,140,0.04) 0%, transparent 50%);
-    pointer-events: none;
-  }
-
-  /* Floating candle particles */
-  .merhum-candle-float {
-    position: absolute;
-    animation: candleFloat linear infinite;
-    pointer-events: none;
-    opacity: 0;
-  }
-  @keyframes candleFloat {
-    0%   { opacity: 0; transform: translateY(0) scale(0.8); }
-    15%  { opacity: 0.6; }
-    85%  { opacity: 0.4; }
-    100% { opacity: 0; transform: translateY(-90px) scale(1.2); }
-  }
-
-  /* Section header */
-  .merhum-header { text-align: center; margin-bottom: 3rem; }
-  .merhum-title-chip {
-    display: inline-block;
-    background: linear-gradient(135deg, rgba(150,120,200,0.15), rgba(100,80,160,0.2));
-    border: 1px solid rgba(180,150,230,0.3);
-    border-radius: 50px;
-    padding: 0.4rem 1.6rem;
-    font-size: 0.68rem;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: rgba(200,180,240,0.8);
-    margin-bottom: 1rem;
-  }
-  .merhum-main-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 5vw, 3rem);
-    font-weight: 900;
-    color: rgba(200,185,240,0.9);
-    text-shadow: 0 0 30px rgba(150,120,200,0.35);
-    margin-bottom: 0.6rem;
-  }
-  .merhum-arabic-title {
-    font-family: 'Dancing Script', cursive;
-    font-size: clamp(1.2rem, 3.5vw, 1.8rem);
-    color: rgba(220,200,255,0.65);
-    margin-bottom: 1rem;
-    letter-spacing: 0.05em;
-  }
-  .merhum-subtitle {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 1rem;
-    color: rgba(200,185,240,0.55);
-    max-width: 520px;
-    margin: 0 auto;
-    line-height: 1.8;
-  }
-  .merhum-ornament {
-    display: flex; align-items: center; justify-content: center;
-    gap: 0.8rem; margin: 1.2rem 0;
-  }
-  .merhum-orn-line {
-    flex: 1; max-width: 100px; height: 1px;
-    background: linear-gradient(to right, transparent, rgba(180,150,230,0.4), transparent);
-  }
-
-  /* ---- GROOM'S FAMILY BLOCK ---- */
-  .merhum-family-block {
-    max-width: 840px;
-    margin: 0 auto 3rem;
-  }
-  .merhum-family-label {
-    text-align: center;
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem;
-    color: rgba(180,160,220,0.7);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.8rem;
-  }
-  .merhum-family-label::before,
-  .merhum-family-label::after {
-    content: '✦';
-    color: rgba(180,150,230,0.4);
-    font-size: 0.7rem;
-  }
-
-  /* Individual merhum card */
-  .merhum-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
-    gap: 1.3rem;
-  }
-  .merhum-card {
-    position: relative;
-    background: linear-gradient(145deg, #0c0820 0%, #080510 50%, #100820 100%);
-    border: 1px solid rgba(150,120,200,0.25);
-    border-radius: 20px;
-    padding: 1.6rem 1rem 1.4rem;
-    text-align: center;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
-    cursor: default;
-  }
-  .merhum-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(to right, transparent, rgba(180,150,230,0.5), transparent);
-  }
-  .merhum-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 50% 0%, rgba(150,120,200,0.1) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .merhum-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(180,150,230,0.5);
-    box-shadow: 0 20px 50px rgba(100,80,160,0.2), 0 0 0 1px rgba(180,150,230,0.2);
-  }
-  .merhum-card:hover::after { opacity: 1; }
-
-  /* Candle icon at top */
-  .merhum-candle {
-    font-size: 2.2rem;
-    display: block;
-    margin-bottom: 0.5rem;
-    animation: candleFlicker 2.5s ease-in-out infinite;
-    filter: drop-shadow(0 0 8px rgba(255,200,100,0.4));
-    position: relative;
-    z-index: 2;
-  }
-  @keyframes candleFlicker {
-    0%,100% { transform: scale(1) rotate(-1deg);   filter: drop-shadow(0 0 6px rgba(255,200,80,0.35)); }
-    25%      { transform: scale(1.04) rotate(1deg); filter: drop-shadow(0 0 12px rgba(255,200,80,0.55)); }
-    50%      { transform: scale(0.98) rotate(-1deg); filter: drop-shadow(0 0 8px rgba(255,200,80,0.4)); }
-    75%      { transform: scale(1.02) rotate(1deg); filter: drop-shadow(0 0 10px rgba(255,200,80,0.5)); }
-  }
-  /* each card has slightly different timing */
-  .merhum-card:nth-child(2) .merhum-candle { animation-delay: 0.4s; }
-  .merhum-card:nth-child(3) .merhum-candle { animation-delay: 0.8s; }
-  .merhum-card:nth-child(4) .merhum-candle { animation-delay: 1.2s; }
-  .merhum-card:nth-child(5) .merhum-candle { animation-delay: 0.6s; }
-  .merhum-card:nth-child(6) .merhum-candle { animation-delay: 1.0s; }
-
-  .merhum-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: rgba(220,205,250,0.9);
-    line-height: 1.3;
-    margin-bottom: 0.35rem;
-    position: relative;
-    z-index: 2;
-  }
-  .merhum-relation {
-    font-size: 0.62rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(180,160,220,0.55);
-    background: rgba(150,120,200,0.1);
-    border: 1px solid rgba(150,120,200,0.18);
-    border-radius: 50px;
-    display: inline-block;
-    padding: 0.18rem 0.7rem;
-    margin-bottom: 0.5rem;
-    position: relative;
-    z-index: 2;
-  }
-  .merhum-rahimahu {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 0.78rem;
-    color: rgba(200,180,240,0.45);
-    display: block;
-    margin-top: 0.2rem;
-    position: relative;
-    z-index: 2;
-  }
-
-  /* ---- BRIDE FAMILY BLOCK ---- */
-  /* Unified merhum label — no separate groom/bride distinction */
-  .merhum-unified-label {
-    background: linear-gradient(135deg, rgba(150,120,200,0.15), rgba(212,175,55,0.1));
-    border: 1px solid rgba(180,150,230,0.2);
-    border-radius: 50px;
-    padding: 0.6rem 2rem;
-    color: rgba(220,200,255,0.8) !important;
-    font-size: 0.9rem;
-    justify-content: center;
-  }
-  .merhum-unified-label::before, .merhum-unified-label::after {
-    content: '🕊️' !important;
-    font-size: 1rem;
-    color: rgba(180,150,230,0.6) !important;
-  }
-  .merhum-bride-label {
-    color: rgba(255,180,200,0.7) !important;
-  }
-  .merhum-bride-label::before, .merhum-bride-label::after {
-    color: rgba(255,160,180,0.4) !important;
-  }
-  .merhum-card-bride {
-    background: linear-gradient(145deg, #1a0810 0%, #0d0508 50%, #180818 100%) !important;
-    border-color: rgba(220,120,150,0.25) !important;
-  }
-  .merhum-card-bride::before {
-    background: linear-gradient(to right, transparent, rgba(220,120,150,0.5), transparent) !important;
-  }
-  .merhum-card-bride:hover {
-    border-color: rgba(220,120,150,0.5) !important;
-    box-shadow: 0 20px 50px rgba(180,60,100,0.15), 0 0 0 1px rgba(220,120,150,0.2) !important;
-  }
-  .merhum-card-bride .merhum-name { color: rgba(255,200,215,0.9) !important; }
-  .merhum-card-bride .merhum-relation {
-    color: rgba(255,160,180,0.55) !important;
-    background: rgba(220,100,130,0.1) !important;
-    border-color: rgba(220,100,130,0.18) !important;
-  }
-
-  /* ---- DUA / PRAYER CARD ---- */
-  .merhum-dua-card {
-    max-width: 720px;
-    margin: 3rem auto 0;
-    background: linear-gradient(145deg, #0a0618 0%, #060410 50%, #0c0820 100%);
-    border: 1px solid rgba(180,150,230,0.2);
-    border-radius: 24px;
-    padding: 2.5rem 2rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .merhum-dua-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(to right, transparent, rgba(150,120,200,0.6), rgba(180,150,230,0.8), rgba(150,120,200,0.6), transparent);
-  }
-  .merhum-dua-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(to right, transparent, rgba(150,120,200,0.4), transparent);
-  }
-  /* Rotating glow orb */
-  .merhum-dua-orb {
-    position: absolute;
-    width: 300px; height: 300px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(120,90,180,0.06) 0%, transparent 70%);
-    top: 50%; left: 50%;
-    transform: translate(-50%,-50%);
-    animation: orbSpin 12s linear infinite;
-    pointer-events: none;
-  }
-  @keyframes orbSpin { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
-
-  .merhum-dua-candles-row {
-    font-size: 2rem;
-    letter-spacing: 0.6rem;
-    margin-bottom: 1.2rem;
-    display: block;
-  }
-  .merhum-dua-candles-row span { animation: candleFlicker 2.5s ease-in-out infinite; display: inline-block; }
-  .merhum-dua-candles-row span:nth-child(2) { animation-delay: 0.4s; }
-  .merhum-dua-candles-row span:nth-child(3) { animation-delay: 0.8s; }
-  .merhum-dua-candles-row span:nth-child(4) { animation-delay: 1.2s; }
-  .merhum-dua-candles-row span:nth-child(5) { animation-delay: 1.6s; }
-
-  .merhum-dua-ayat {
-    font-family: 'Dancing Script', cursive;
-    font-size: clamp(1.1rem, 3.5vw, 1.6rem);
-    color: rgba(220,200,255,0.8);
-    text-shadow: 0 0 20px rgba(150,120,200,0.4);
-    line-height: 1.9;
-    margin-bottom: 0.6rem;
-    letter-spacing: 0.04em;
-    position: relative;
-    z-index: 2;
-  }
-  .merhum-dua-trans {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 0.88rem;
-    color: rgba(200,185,240,0.5);
-    margin-bottom: 1.5rem;
-    line-height: 1.7;
-    position: relative;
-    z-index: 2;
-  }
-  .merhum-dua-divider {
-    display: flex; align-items: center; gap: 0.8rem;
-    margin: 1.2rem 0;
-    position: relative; z-index: 2;
-  }
-  .merhum-dua-divider-line {
-    flex: 1; height: 1px;
-    background: linear-gradient(to right, transparent, rgba(180,150,230,0.3), transparent);
-  }
-  .merhum-dua-prayers {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
-    color: rgba(210,195,245,0.7);
-    line-height: 2.1;
-    position: relative; z-index: 2;
-  }
-  .merhum-dua-prayers strong {
-    color: rgba(220,205,255,0.9);
-  }
-  .merhum-ameen {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.4rem, 4vw, 2rem);
-    font-weight: 900;
-    color: rgba(200,180,240,0.85);
-    text-shadow: 0 0 25px rgba(150,120,200,0.4);
-    margin-top: 1.5rem;
-    display: block;
-    position: relative; z-index: 2;
-    animation: nameShimmer 4s ease-in-out infinite;
-  }
-  .merhum-all-relatives {
-    margin-top: 1.2rem;
-    background: rgba(150,120,200,0.06);
-    border: 1px dashed rgba(150,120,200,0.2);
-    border-radius: 14px;
-    padding: 1rem 1.5rem;
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 0.92rem;
-    color: rgba(200,185,240,0.6);
-    line-height: 1.9;
-    position: relative; z-index: 2;
-  }
-
-  /* Mobile responsive */
-  @media (max-width: 768px) {
-    .merhum-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; }
-    .merhum-card { padding: 1.3rem 0.8rem 1.1rem; border-radius: 16px; }
-    .merhum-candle { font-size: 1.8rem; }
-    .merhum-name { font-size: 0.95rem; }
-    .merhum-relation { font-size: 0.56rem; }
-    .merhum-dua-card { padding: 1.8rem 1.2rem; border-radius: 18px; }
-    .merhum-dua-ayat { font-size: clamp(1rem, 4vw, 1.3rem); }
-    .merhum-dua-prayers { font-size: 0.9rem; }
-    .merhum-ameen { font-size: clamp(1.2rem, 5vw, 1.6rem); }
-    .merhum-all-relatives { font-size: 0.84rem; padding: 0.8rem 1rem; }
-  }
-  @media (max-width: 480px) {
-    .merhum-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
-    .merhum-card { padding: 1.1rem 0.6rem; }
-    .merhum-candle { font-size: 1.6rem; }
-    .merhum-name { font-size: 0.88rem; }
-    .merhum-dua-candles-row { font-size: 1.5rem; letter-spacing: 0.3rem; }
   }
 
   /* ============================================================
@@ -2827,7 +2416,6 @@
     <li><a href="#journey">Route</a></li>
     <li><a href="#waleema">Waleema</a></li>
     <li><a href="#family">Family</a></li>
-    <li><a href="#merhum">Marhum</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -3035,7 +2623,7 @@
 
         <!-- Shadow/glow layer (thicker, blurred) -->
         <path
-          d="M 68,420 L 68,100 L 730,80 L 730,420"
+          d="M 68,415 L 68,82 L 730,58 L 730,425"
           fill="none"
           stroke="#4080ff"
           stroke-width="14"
@@ -3048,7 +2636,7 @@
         <!-- Main route — blue like Google Maps -->
         <path
           id="mainRoute"
-          d="M 68,420 L 68,100 L 730,80 L 730,420"
+          d="M 68,415 L 68,82 L 730,58 L 730,425"
           fill="none"
           stroke="#4a90e8"
           stroke-width="8"
@@ -3059,7 +2647,7 @@
 
         <!-- Route outline (darker border) -->
         <path
-          d="M 68,420 L 68,100 L 730,80 L 730,420"
+          d="M 68,415 L 68,82 L 730,58 L 730,425"
           fill="none"
           stroke="#1a4a9e"
           stroke-width="10"
@@ -3070,7 +2658,7 @@
 
         <!-- Bright center of route -->
         <path
-          d="M 68,420 L 68,100 L 730,80 L 730,420"
+          d="M 68,415 L 68,82 L 730,58 L 730,425"
           fill="none"
           stroke="#7ab8ff"
           stroke-width="4"
@@ -3082,7 +2670,7 @@
         <!-- Animated parade trail that follows the path -->
         <path
           id="paradeTrail"
-          d="M 68,420 L 68,100 L 730,80 L 730,420"
+          d="M 68,415 L 68,82 L 730,58 L 730,425"
           fill="none"
           stroke="#f0d060"
           stroke-width="6"
@@ -3095,12 +2683,12 @@
         />
 
         <!-- Direction arrows along route -->
-        <path d="M 68,340 L 68,290" fill="none" stroke="#60b0ff" stroke-width="2" marker-end="url(#routeArrow)" opacity="0.7"/>
-        <path d="M 68,200 L 68,150" fill="none" stroke="#60b0ff" stroke-width="2" marker-end="url(#routeArrow)" opacity="0.7"/>
-        <path d="M 200,86 L 350,82" fill="none" stroke="#60b0ff" stroke-width="2" marker-end="url(#routeArrow)" opacity="0.7"/>
-        <path d="M 480,82 L 620,80" fill="none" stroke="#60b0ff" stroke-width="2" marker-end="url(#routeArrow)" opacity="0.7"/>
-        <path d="M 730,200 L 730,290" fill="none" stroke="#60b0ff" stroke-width="2" marker-end="url(#routeArrow)" opacity="0.7"/>
-        <path d="M 730,330 L 730,380" fill="none" stroke="#60b0ff" stroke-width="2" marker-end="url(#routeArrow)" opacity="0.7"/>
+        <path d="M 68,340 L 68,280" fill="none" stroke="#60b0ff" stroke-width="2" marker-end="url(#routeArrow)" opacity="0.7"/>
+        <path d="M 68,200 L 68,140" fill="none" stroke="#60b0ff" stroke-width="2" marker-end="url(#routeArrow)" opacity="0.7"/>
+        <path d="M 200,60 L 350,59" fill="none" stroke="#60b0ff" stroke-width="2" marker-end="url(#routeArrow)" opacity="0.7"/>
+        <path d="M 480,59 L 620,58" fill="none" stroke="#60b0ff" stroke-width="2" marker-end="url(#routeArrow)" opacity="0.7"/>
+        <path d="M 730,200 L 730,300" fill="none" stroke="#60b0ff" stroke-width="2" marker-end="url(#routeArrow)" opacity="0.7"/>
+        <path d="M 730,330 L 730,390" fill="none" stroke="#60b0ff" stroke-width="2" marker-end="url(#routeArrow)" opacity="0.7"/>
 
       </svg>
 
@@ -3685,128 +3273,6 @@
   </div>
 </section>
 
-<div class="section-sparks">🕯️ 🤲 🌙 🤲 🕯️</div>
-
-<!-- MERHUM / IN MEMORIAM -->
-<section class="merhum-section" id="merhum">
-
-  <!-- Floating candle particles (added by JS) -->
-  <div id="merhumParticles" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;"></div>
-
-  <div class="section-header merhum-header reveal">
-    <div class="merhum-title-chip">🕯️ In Loving Memory · یاد میں</div>
-    <h2 class="merhum-main-title">Our Beloved Departed Souls</h2>
-    <div class="merhum-arabic-title">
-      إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ
-    </div>
-    <div class="merhum-ornament">
-      <div class="merhum-orn-line"></div>
-      <span style="color:rgba(180,150,230,0.5);font-size:1rem;">🕯️</span>
-      <div class="merhum-orn-line"></div>
-    </div>
-    <p class="merhum-subtitle">
-      Though you are not with us today, your love, prayers and blessings<br>
-      live on in our hearts — forever and always.
-    </p>
-  </div>
-
-  <!-- ══════ OUR BELOVED DEPARTED — UNIFIED ══════ -->
-  <div class="merhum-family-block reveal">
-    <div class="merhum-family-label merhum-unified-label">
-      Our Beloved Departed — United in Allah's Mercy
-    </div>
-    <div class="merhum-grid">
-
-      <div class="merhum-card">
-        <span class="merhum-candle">🕯️</span>
-        <div class="merhum-name">Naseem Akhtar</div>
-        <span class="merhum-relation">💜 Nani — Maternal Grandmother</span>
-        <span class="merhum-rahimahu">رَحِمَهَا اللَّهُ</span>
-      </div>
-
-      <div class="merhum-card">
-        <span class="merhum-candle">🕯️</span>
-        <div class="merhum-name">Sami Ullah</div>
-        <span class="merhum-relation">💜 Nana — Maternal Grandfather</span>
-        <span class="merhum-rahimahu">رَحِمَهُ اللَّهُ</span>
-      </div>
-
-      <div class="merhum-card">
-        <span class="merhum-candle">🕯️</span>
-        <div class="merhum-name">Rahat Parveen</div>
-        <span class="merhum-relation">💜 Dadi — Paternal Grandmother</span>
-        <span class="merhum-rahimahu">رَحِمَهَا اللَّهُ</span>
-      </div>
-
-      <div class="merhum-card">
-        <span class="merhum-candle">🕯️</span>
-        <div class="merhum-name">Sardar M. Bhatti</div>
-        <span class="merhum-relation">💜 Dada — Paternal Grandfather</span>
-        <span class="merhum-rahimahu">رَحِمَهُ اللَّهُ</span>
-      </div>
-
-      <div class="merhum-card">
-        <span class="merhum-candle">🕯️</span>
-        <div class="merhum-name">Mumtaz Tehseen</div>
-        <span class="merhum-relation">🕊️ Saas — Mother-in-Law</span>
-        <span class="merhum-rahimahu">رَحِمَهَا اللَّهُ</span>
-      </div>
-
-      <div class="merhum-card">
-        <span class="merhum-candle">🕯️</span>
-        <div class="merhum-name">Rana Ghulam Hussain</div>
-        <span class="merhum-relation">🕊️ Susar — Father-in-Law</span>
-        <span class="merhum-rahimahu">رَحِمَهُ اللَّهُ</span>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ══════ PRAYER / DUA CARD ══════ -->
-  <div class="merhum-dua-card reveal">
-    <div class="merhum-dua-orb"></div>
-
-    <span class="merhum-dua-candles-row">
-      <span>🕯️</span><span>🕯️</span><span>🌙</span><span>🕯️</span><span>🕯️</span>
-    </span>
-
-    <div class="merhum-dua-ayat">
-      اللَّهُمَّ اغْفِرْ لَهُمْ وَارْحَمْهُمْ وَعَافِهِمْ وَاعْفُ عَنْهُمْ
-    </div>
-    <div class="merhum-dua-trans">
-      "O Allah! Forgive them, have mercy on them, keep them safe and pardon them."
-    </div>
-
-    <div class="merhum-dua-divider">
-      <div class="merhum-dua-divider-line"></div>
-      <span style="color:rgba(180,150,230,0.4);font-size:0.8rem;">🤲</span>
-      <div class="merhum-dua-divider-line"></div>
-    </div>
-
-    <div class="merhum-dua-prayers">
-      May Allah ﷻ <strong>shower His infinite mercy</strong> upon the souls of our beloved departed.<br><br>
-      May their graves be filled with <strong>noor (light)</strong> and peace.<br>
-      May Allah grant them the <strong>highest ranks in Jannatul Firdaus</strong>.<br>
-      May they rest in the <strong>eternal comfort of Allah's nearness</strong>.<br>
-      May their every deed be accepted and their every shortcoming forgiven.<br><br>
-      <strong>وَأَدْخِلْهُمُ الْجَنَّةَ وَنَجِّهِمْ مِنَ النَّارِ</strong><br>
-      <em style="font-size:0.82rem;color:rgba(200,185,240,0.45);">"And admit them to Paradise and save them from the punishment of the Fire."</em>
-    </div>
-
-    <div class="merhum-all-relatives">
-      🤲 We also remember <strong>all merhum relatives, neighbours and friends</strong> who have left this world —
-      every uncle, aunty, grandparent, cousin and soul who was ever dear to this family.<br>
-      May Allah accept their deeds, forgive their sins and grant them all<br>
-      <strong>beautiful rest in the gardens of Jannah.</strong>
-    </div>
-
-    <span class="merhum-ameen">آمِيْن يَا رَبَّ الْعَالَمِيْن 🤲</span>
-  </div>
-
-</section>
-
-<div class="section-sparks">🌹 🤲 💐 🤲 🌹</div>
-
 <!-- FINAL CLOSING SECTION -->
 <section class="closing-section" id="closing">
 
@@ -4022,17 +3488,17 @@ document.addEventListener('click', (e) => {
 
 const ROUTE_WAYPOINTS = [
   // [svgX, svgY, labelText, progressPct]
-  [68,  420, "🏠 Rawangi — 6:30 PM!",   0],    // START — Badami Bagh
+  [68,  415, "🏠 Rawangi — 6:30 PM!",   0],    // START — Badami Bagh
   [68,  320, "⬆️ Abu Bakar Rd North",    13],   // Going up
   [68,  200, "⬆️ Approaching Ring Road", 25],   // Mid left
-  [68,  100, "↗️ Entering Ring Road!",   35],   // Top-left corner (Ring Road entry)
-  [230,  80, "→ Ring Road Eastbound",    45],   // Along Ring Road
-  [400,  80, "→ Halfway on Ring Road",   55],   // Mid Ring Road
-  [590,  80, "→ Almost at exit!",        68],   // Right section Ring Road
-  [730,  80, "↘️ Tariq Shaheed Exit!",   78],   // Top-right corner
-  [730, 210, "⬇️ Tariq Shaheed Rd",     86],   // Going down
+  [68,   82, "↗️ Entering Ring Road!",   35],   // Top-left corner (Ring Road entry)
+  [230,  58, "→ Ring Road Eastbound",    45],   // Along Ring Road
+  [400,  58, "→ Halfway on Ring Road",   55],   // Mid Ring Road
+  [590,  58, "→ Almost at exit!",        68],   // Right section Ring Road
+  [730,  58, "↘️ Tariq Shaheed Exit!",   78],   // Top-right corner
+  [730, 200, "⬇️ Tariq Shaheed Rd",     86],   // Going down
   [730, 340, "⬇️ Approaching Hall...",  93],   // Near destination
-  [730, 420, "🏛️ Mehar Shadi Hall! 🎊", 100],  // END
+  [730, 425, "🏛️ Mehar Shadi Hall! 🎊", 100],  // END
 ];
 
 let paradeAnimFrame = null;
@@ -4079,32 +3545,14 @@ function updateParadeCard(pct, svgX, svgY) {
   card.style.left   = lPct + '%';
   card.style.bottom = bPct + '%';
 
-  // Determine direction of travel and update card face
-  // We DON'T rotate the whole card (keeps text readable)
-  // Instead we flip just the groom emoji to face direction of travel
-  const groomEl = card.querySelector('.parade-groom-emoji');
-  const dholEls = card.querySelectorAll('.parade-dhol');
-  let dirLabel = '';
-  let groomTransform = '';
+  // Rotate card based on direction
+  let rotation = 0;
+  if (svgY > 350) rotation = 0;        // At start, pointing up
+  else if (svgX < 100 && svgY > 100) rotation = 0; // Going up (north)
+  else if (svgY < 100) rotation = 90;  // Going right along Ring Road
+  else rotation = 180;                  // Going down on right side
 
-  if (svgX < 100 && svgY > 100) {
-    // Going UP (north) along left side
-    dirLabel = '⬆️';
-    groomTransform = 'scaleX(1)';
-  } else if (svgY < 100 && svgX < 700) {
-    // Going RIGHT (east) along Ring Road — flip car to face right
-    dirLabel = '➡️';
-    groomTransform = 'scaleX(1)';
-  } else if (svgX >= 700) {
-    // Going DOWN (south) along right side — mirror to face down / left
-    dirLabel = '⬇️';
-    groomTransform = 'scaleX(-1)'; // Mirror the groom to face the destination
-  } else {
-    groomTransform = 'scaleX(1)';
-  }
-
-  if (groomEl) groomEl.style.transform = groomTransform;
-  card.style.transform = 'translate(-50%, -50%)'; // No whole-card rotation — keeps text readable
+  card.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
 
   // Update progress bar
   if (fill) fill.style.width = pct + '%';
@@ -4188,43 +3636,6 @@ window.startParadeAnimation = function() {
     });
   }, { threshold: 0.3 });
   if (journeySection) obs.observe(journeySection);
-})();
-
-
-// ===== MERHUM SECTION — FLOATING CANDLES =====
-(function() {
-  const container = document.getElementById('merhumParticles');
-  if (!container) return;
-  const symbols = ['🕯️','✨','🌙','💫','⭐','🌟'];
-  function spawnMerhumParticle() {
-    const el = document.createElement('span');
-    el.className = 'merhum-candle-float';
-    el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-    el.style.left = Math.random() * 100 + '%';
-    el.style.top  = (50 + Math.random() * 45) + '%';
-    el.style.fontSize = (0.7 + Math.random() * 0.9) + 'rem';
-    el.style.animationDuration  = (4 + Math.random() * 5) + 's';
-    el.style.animationDelay     = '0s';
-    container.appendChild(el);
-    setTimeout(() => el.remove(), 10000);
-  }
-  // Only spawn when section is visible
-  const section = document.getElementById('merhum');
-  if (!section) return;
-  let active = false;
-  let interval = null;
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting && !active) {
-        active = true;
-        interval = setInterval(spawnMerhumParticle, 700);
-      } else if (!e.isIntersecting && active) {
-        active = false;
-        clearInterval(interval);
-      }
-    });
-  }, { threshold: 0.1 });
-  obs.observe(section);
 })();
 
 // ===== GUEST NAME SYSTEM =====
@@ -4339,57 +3750,6 @@ window.startParadeAnimation = function() {
   });
 
 })();
-
-// ===== ACTIVE NAV HIGHLIGHT (SCROLL SPY) =====
-(function() {
-  const sections = [
-    { id: 'home',     href: '#home'    },
-    { id: 'barat',    href: '#barat'   },
-    { id: 'journey',  href: '#journey' },
-    { id: 'waleema',  href: '#waleema' },
-    { id: 'family',   href: '#family'  },
-    { id: 'merhum',   href: '#merhum'  },
-    { id: 'contact',  href: '#contact' },
-    { id: 'closing',  href: '#closing' },
-  ];
-
-  const navLinks = document.querySelectorAll('.nav-links a');
-
-  function setActive(id) {
-    navLinks.forEach(a => {
-      a.classList.remove('nav-active');
-      if (a.getAttribute('href') === '#' + id) {
-        a.classList.add('nav-active');
-      }
-    });
-  }
-
-  // Intersection observer — highlight nav when section is in view
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        setActive(entry.target.id);
-      }
-    });
-  }, {
-    rootMargin: '-30% 0px -60% 0px', // trigger when section is in middle 10% of viewport
-    threshold: 0
-  });
-
-  sections.forEach(s => {
-    const el = document.getElementById(s.id);
-    if (el) observer.observe(el);
-  });
-
-  // Also handle click — immediately set active
-  navLinks.forEach(a => {
-    a.addEventListener('click', function() {
-      navLinks.forEach(l => l.classList.remove('nav-active'));
-      this.classList.add('nav-active');
-    });
-  });
-})();
-
 </script>
 </body>
 </html>
